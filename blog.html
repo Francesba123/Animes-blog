@@ -22,7 +22,19 @@
     <main>
         <div class="container">
             <h1>Blog</h1>
-            <section class="posts">
+            <section id="post-form">
+                <h2>Publicar Novo Post</h2>
+                <form id="new-post-form">
+                    <label for="post-title">Título:</label>
+                    <input type="text" id="post-title" name="title" required>
+                    
+                    <label for="post-content">Conteúdo:</label>
+                    <textarea id="post-content" name="content" rows="5" required></textarea>
+                    
+                    <button type="submit">Publicar</button>
+                </form>
+            </section>
+            <section class="posts" id="posts-container">
                 <!-- Postagens serão carregadas aqui via JavaScript -->
             </section>
         </div>
