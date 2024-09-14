@@ -2,19 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const postsContainer = document.getElementById('posts-container');
     const postForm = document.getElementById('new-post-form');
 
-    // Dados de exemplo para postagens
-    const posts = [
-        {
-            id: 1,
-            title: "Título do Primeiro Post",
-            date: "15 de Setembro de 2024",
-            content: "Conteúdo do primeiro post. Este é um exemplo de postagem no blog sobre animes.",
-            likes: 0,
-            comments: []
-        }
-    ];
+    let posts = [];
 
-    // Função para criar uma postagem
     function createPost(post) {
         const postElement = document.createElement('article');
         postElement.classList.add('post');
@@ -38,14 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return postElement;
     }
 
-    // Função para exibir postagens
     function displayPosts() {
         postsContainer.innerHTML = '';
         posts.forEach(post => {
             postsContainer.appendChild(createPost(post));
         });
 
-        // Adicionar eventos de curtidas e comentários
         document.querySelectorAll('.like-button').forEach(button => {
             button.addEventListener('click', function() {
                 const postId = parseInt(this.getAttribute('data-id'));
@@ -62,12 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const comment = this.querySelector('input[name="comment"]').value;
                 const post = posts.find(p => p.id === postId);
                 post.comments.push(comment);
-                displayPosts(); // Recarregar postagens
+                displayPosts();
             });
         });
     }
 
-    // Adicionar nova postagem
     postForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const title = this.querySelector('#post-title').value;
@@ -81,10 +67,9 @@ document.addEventListener('DOMContentLoaded', function () {
             comments: []
         };
         posts.push(newPost);
-        displayPosts(); // Recarregar postagens
+        displayPosts();
         this.reset();
     });
 
-    // Inicializar postagens
     displayPosts();
 });
