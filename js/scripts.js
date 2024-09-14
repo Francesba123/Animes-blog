@@ -1,55 +1,39 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Destacar link ativo
-    const currentPage = window.location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
-    });
-
-    // Carregar posts recentes
-    if (document.querySelector('.latest-posts')) {
-        loadLatestPosts();
-    }
-
-    // Buscar posts
-    const searchForm = document.getElementById('search-form');
-    if (searchForm) {
-        searchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const query = document.getElementById('search-input').value.toLowerCase();
-            searchPosts(query);
-        });
-    }
-});
-
-function loadLatestPosts() {
-    const postsContainer = document.querySelector('.latest-posts');
+document.addEventListener('DOMContentLoaded', function () {
+    // Dados de exemplo para postagens
     const posts = [
-        { title: 'Novo Anime Chegou!', content: 'Confira o novo anime que está fazendo sucesso.' },
-        { title: 'Top 10 Animes de 2024', content: 'Veja nossa lista dos melhores animes deste ano.' }
+        {
+            title: "Título do Primeiro Post",
+            date: "15 de Setembro de 2024",
+            content: "Conteúdo do primeiro post. Este é um exemplo de postagem no blog sobre animes."
+        },
+        {
+            title: "Título do Segundo Post",
+            date: "16 de Setembro de 2024",
+            content: "Conteúdo do segundo post. Continue lendo para mais novidades e análises sobre animes."
+        }
     ];
-    
-    posts.forEach(post => {
+
+    // Função para criar uma postagem
+    function createPost(post) {
         const postElement = document.createElement('article');
+        postElement.classList.add('post');
         postElement.innerHTML = `
-            <h3>${post.title}</h3>
+            <h2>${post.title}</h2>
+            <p class="date">${post.date}</p>
             <p>${post.content}</p>
         `;
-        postsContainer.appendChild(postElement);
-    });
-}
+        return postElement;
+    }
 
-function searchPosts(query) {
-    const posts = document.querySelectorAll('.latest-posts article');
-    posts.forEach(post => {
-        const title = post.querySelector('h3').textContent.toLowerCase();
-        const content = post.querySelector('p').textContent.toLowerCase();
-        if (title.includes(query) || content.includes(query)) {
-            post.style.display = '';
-        } else {
-            post.style.display = 'none';
+    // Adicionar postagens à página principal e à página do blog
+    function displayPosts() {
+        const postsContainer = document.querySelector('.latest-posts') || document.querySelector('.posts');
+        if (postsContainer) {
+            posts.forEach(post => {
+                postsContainer.appendChild(createPost(post));
+            });
         }
-    });
-}
+    }
+
+    displayPosts();
+});
